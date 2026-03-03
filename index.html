@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <title>武汉一高it社</title>
+        <style>
+            body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            }
+            
+            .background {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url('static/images/open.jpg');
+                background-size: cover;
+                background-position: center;
+                transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+                z-index: 1;
+            }
+            
+            .content {
+                position: absolute;
+                bottom: 200px;
+                left: 0;
+                right: 0;
+                z-index: 2;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                color: white;
+                text-align: center;
+                padding: 20px;
+                background-color: rgba(0, 0, 0, 0.3);
+                transition: opacity 0.5s ease;
+            }
+            h1.opentext {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+                text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            }
+            @keyframes pulse {
+                0% { opacity: 0.6; }
+                50% { opacity: 1; }
+                100% { opacity: 0.6; }
+            }
+            
+            /* 滑出状态 */
+            .slide-out {
+                transform: translateX(-100%);
+            }
+            
+            .fade-out {
+                opacity: 0;
+            }
+
+        
+            /*以上为开屏代码*/
+
+            body{
+                background-color:azure;
+            }
+            .box{
+                width:1000px;
+                height:320px;
+                background-color:white;
+                margin:0;
+                padding:0;
+                margin:auto;
+                margin-top:100px;
+                box-shadow:0px 5px 12px black;
+            }
+            *{
+                margin:0;
+                padding:0;
+                list-style:none;
+                text-decoration:none;
+            }
+            .nav{
+                height:100px;
+                background:linear-gradient(white,white);
+            }
+            .navlist{
+                width:1500px;
+                margin:auto;
+            }
+            .btli{
+                float:left;
+                height:40px;
+                width:250px;
+                margin-top:30px;
+                line-height:40px;
+                text-align:center;
+
+            }
+            .navlist h3:hover{
+                background:cornsilk;
+                display:block;
+            }
+            .navlist a:hover{
+                background:cornsilk;
+                display:block;
+            }
+            .droplist{
+                background:white;
+                display:none;
+            }
+            .btli:hover .droplist{
+                display:block;
+            }
+            .navlist h3{
+                color:black;
+            }
+            .navlist a{
+                color:black;
+            }
+            .introductionleft{
+                margin-left: 50px;
+                margin-right: 50px;
+            }
+            .mp4style{
+                width:1000px;
+                height:600px;
+                margin:0;
+                padding:0;
+                margin:auto;
+                margin-top:100px;
+            }
+            footer {
+                background-color: #2c3e50;
+                color: #ecf0f1;
+                text-align: center;
+                padding: 30px 20px;
+                margin-top: 50px;
+                font-size: 14px;
+                border-top: 3px solid #3498db;
+            }
+            footer p {
+                margin: 5px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="background"></div>
+        <div class="content">
+            <h1 class="opentext">Check!</h1>
+            <p>网页加载速度较慢，无法加载图片耐心等待</p>
+        </div>
+        <div class='nav'>
+            <ul class="navlist">
+                <li class='btli'><img src="static/images/logo.jpg" style="width: 50px; height: 50px"><h1>武汉一高IT社</h1></li>
+                <li class='btli'><a href="https://whsdyzx.wuhaneduyun.cn/index.php?r=space/school/theme/index"><h2>武汉一高校园网</h2></a></li>
+                <li class='btli'><a href="templates/member.html"><h2>社员风采</h2></a></li>
+                <li class='btli'><h2>互动</h2>
+                    <ul class='droplist'>
+                        <li><a href="templates/IT_introduction.html">何为IT</a></li>
+                        <li><a href="templates/Achivements.html">成就</a></li> 
+                    </ul>
+                </li>
+                <li class='btli'><h2><a href="#">有趣的东西</a></h2>
+                    <ul class='droplist'>
+                        <li><a href="templates/keyboard.html">可视化键盘</a></li>
+                        <li><a href="https://world.execute.umstudio.top/">网页world.execute(me)(By 羽梦Studio-bilibili)</a></li>
+                    </ul>
+                </li>              
+            </ul>
+        </div>
+        <div class="mp4style"><video width="1000" height="600"  src="static/mp4/IT Club.mp4" style="border-radius: 15px;" poster="static/images/poster.jpg" controls autoplay ></video></div>
+        <div class="box">
+            <div class="introductionleft">
+                <h1>简介</h1>
+                <br>                
+                <p>武汉一中极光IT社成立于2020年，是我校新兴的优秀社团之一。极光，寓意着在信息技术的浩瀚星空中探寻那一抹最耀眼的光芒。自创立以来，社团秉持“脚踏实地，仰望星空”的理念，既注重夯实社员的信息技术基础，又鼓励大家放眼科技前沿，探索无限可能。</p>
+                <p>校内，我们有优秀的信息技术教师坐镇指导，为社员提供系统的学习路径与专业的答疑解惑，帮助大家在计算机科学的世界里稳步前行；校外，更有计算机领域的专业人士长期与社团保持交流，定期为社员开展技术讲座与实践课程，让课本之外的知识得以延伸，让兴趣与专业接轨。</p>
+                <p>在极光IT社，你可以遇见三维建模的高手，在虚拟空间里构建属于自己的想象；你可以结识对网络安全、人工智能、算法竞赛等领域满怀热忱的同伴，共同探讨前沿技术的奥秘。这里不仅是技术爱好者的聚集地，更是思想碰撞、梦想起航的地方。每一次代码的敲击，都是我们靠近星空的一步；每一次技术交流的火花，都照亮着脚踏实地的未来。</p>
+            </div>
+        </div>
+        <footer>
+            <p> 2026 武汉一高IT社</p>
+            <p>By 0+7</p>
+            <p>我们的社群：959533774（QQ）</p>
+        </footer>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const background = document.querySelector('.background');
+                const content = document.querySelector('.content');
+                const instruction = document.querySelector('.instruction');
+                
+                document.body.addEventListener('click', function() {
+                    const background = document.querySelector('.background');
+                    const content = document.querySelector('.content');
+                    const instruction = document.querySelector('.instruction');
+                    if (instruction) instruction.style.display = 'none';
+
+                    background.classList.add('slide-out');
+                    content.classList.add('fade-out');
+                    
+                    setTimeout(function() {
+                        background.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }, 1500);
+                }, { once: true });
+            });
+        // 此为监控开屏动画
+        </script> 
+        <script src="/cdn-fix.js"></script>
+    </body>
+</html>

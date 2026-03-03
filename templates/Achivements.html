@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成就</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .main {
+            padding: 40px 0 60px;
+        }
+
+        .card-style {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 28px 24px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.2s;
+            border: 1px solid #f1f5f9;
+        }
+
+        .card-style:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -8px rgba(0, 37, 91, 0.1), 0 8px 10px -6px rgba(0,0,0,0.02);
+            border-color: #dbeafe;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+        }
+        .page-header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #1e293b, #2563eb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .page-header .breadcrumb {
+            color: #64748b;
+            font-size: 1rem;
+        }
+        .breadcrumb a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb-sep {
+            margin: 0 6px;
+            color: #94a3b8;
+        }
+
+        .carousel-card {
+            padding: 0;
+            aspect-ratio: 1 / 1;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            border-radius: 28px;
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+        }
+
+        .carousel-card input[type="radio"] {
+            display: none;
+        }
+
+        .carousel-slides {
+            display: flex;
+            width: 400%;
+            height: 100%;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+
+        .slide {
+            position: relative;
+            width: 25%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1e293b;
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            overflow: hidden;
+        }
+
+        .slide-1 { background: linear-gradient(145deg, #dbeafe, #a5c9ff); }
+        .slide-2 { background: linear-gradient(145deg, #f1d7b5, #f9d3b4); }
+        .slide-3 { background: linear-gradient(145deg, #000000, #000000); }
+        .slide-4 { background: linear-gradient(145deg, #000000, #000000); }
+
+        .slide-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .slide span {
+            position: relative;
+            z-index: 3;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+            padding: 10px 28px;
+            border-radius: 60px;
+            font-size: 1.4rem;
+            color: #0f172a;
+            box-shadow: 0 8px 16px -8px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .slide-tooltip {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            white-space: nowrap;
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+            pointer-events: none;
+            z-index: 20;
+            letter-spacing: 0.3px;
+        }
+
+        .slide:hover .slide-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        #slide-1:checked ~ .carousel-slides { transform: translateX(0); }
+        #slide-2:checked ~ .carousel-slides { transform: translateX(-25%); }
+        #slide-3:checked ~ .carousel-slides { transform: translateX(-50%); }
+        #slide-4:checked ~ .carousel-slides { transform: translateX(-75%); }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            z-index: 30;
+            pointer-events: none;
+        }
+
+        .carousel-dots label {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            pointer-events: auto;
+        }
+
+        .carousel-dots label:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: scale(1.25);
+        }
+
+        #slide-1:checked ~ .carousel-dots label[for="slide-1"],
+        #slide-2:checked ~ .carousel-dots label[for="slide-2"],
+        #slide-3:checked ~ .carousel-dots label[for="slide-3"],
+        #slide-4:checked ~ .carousel-dots label[for="slide-4"] {
+            background: #2563eb;
+            width: 30px;
+            border: 1px solid white;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 18px -6px rgba(0, 20, 40, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 35;
+            opacity: 0.8;
+        }
+        .carousel-arrow.left { left: 18px; }
+        .carousel-arrow.right { right: 18px; }
+        .carousel-arrow:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-50%) scale(1.05);
+        }
+        .carousel-arrow::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border: solid #1e293b;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 4px;
+        }
+        .carousel-arrow.left::before { transform: rotate(135deg); margin-left: 5px; }
+        .carousel-arrow.right::before { transform: rotate(-45deg); margin-right: 5px; }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 48px 0 24px;
+            color: #1e293b;
+            letter-spacing: -0.02em;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .project-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+            border: 1px solid #f1f5f9;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 30px -12px rgba(0, 37, 91, 0.15);
+            border-color: #dbeafe;
+        }
+
+        .project-img {
+            position: relative;
+            width: 100%;
+            background: #e2e8f0;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #475569;
+            border-bottom: 1px solid #e9eef3;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .img-tooltip {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+            box-shadow: 0 8px 18px -6px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.25);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .project-img:hover .img-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .project-content {
+            padding: 24px 22px 26px;
+        }
+        .project-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+        .project-content p {
+            color: #475569;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 0.98rem;
+        }
+        .footer {
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            padding: 32px 0;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 680px) {
+            .carousel-card {
+                max-width: 100%;
+                border-radius: 24px;
+            }
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            .slide-tooltip {
+                font-size: 0.8rem;
+                padding: 6px 14px;
+            }
+            .carousel-arrow {
+                width: 36px;
+                height: 36px;
+            }
+        }
+        @media (max-width: 600px) {
+            .project-grid {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="main">
+        <div class="container">
+            <div class="page-header">
+                <div class="breadcrumb">
+                    <a href="../index.html">主页</a>
+                    <span class="breadcrumb-sep">/</span>
+                    <span style="color: #0f172a; font-weight: 500;">成就</span>
+                </div>
+                <h1>硬核极客·思维无界</h1>
+            </div>
+
+            <div class="carousel-card card-style">
+                <input type="radio" name="carousel" id="slide-1" checked>
+                <input type="radio" name="carousel" id="slide-2">
+                <input type="radio" name="carousel" id="slide-3">
+                <input type="radio" name="carousel" id="slide-4">
+
+                <div class="carousel-slides">
+                    <div class="slide slide-1">
+                        <img src="../static/images/Achivement1.jpg" alt="无法显示图片">
+                        <div class="slide-tooltip">Limbus Company</div>
+                    </div>
+                    <div class="slide slide-2">
+                        <video class="slide-video" autoplay muted loop playsinline>
+                            <source src="../static/mp4/Achivement.mp4" type="video/mp4">
+                        </video>
+                        <div class="slide-tooltip">由社员制作的电子通行证</div>
+                    </div>
+                    <div class="slide slide-3">
+                        <img src="../static/images/Achivement2.jpg" alt="无法显示图片">
+                        <div class="slide-tooltip">gal区-素晴日</div>
+                    </div>
+                    <div class="slide slide-4">
+                        <img src="../static/images/Achivement3.jpg" alt="无法显示图片">
+                        <div class="slide-tooltip">术力口-science</div>
+                    </div>
+                </div>
+
+                <div class="carousel-dots">
+                    <label for="slide-1"></label>
+                    <label for="slide-2"></label>
+                    <label for="slide-3"></label>
+                    <label for="slide-4"></label>
+                </div>
+
+                <div class="carousel-arrow left" id="arrow-left"></div>
+                <div class="carousel-arrow right" id="arrow-right"></div>
+            </div>
+
+            <h2 class="section-title">高光项目 · 作品展示</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-img image-placeholder small" style="border-radius: 28px 28px 0 0; border: none;">
+                        <a href="https://www.bilibili.com/video/BV1qoTwzqEpz/?spm_id_from=333.1387.upload.video_card.click"><img src="../static/images/AchivementCard1.jpg" alt="无法显示图片"></a>
+                        <div class="img-tooltip">求生之路建模</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>建模</h3>
+                        <p>欢迎来到你的高中！只不过，现在这里已被丧尸占领。奔跑在熟悉的走廊，躲进曾经的教室，在食堂寻找弹药——只不过这次，你要面对的可不是食堂大妈。友情提示：别去教务处，那里有一群特感。</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img image-placeholder small" style="border-radius: 28px 28px 0 0; border: none;">
+                        <img width="400" heigh="220" src="../static/images/AchivementCard2.jpg" alt="无法显示图片">
+                        <div class="img-tooltip">MC一高</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>一高数字化建设工程</h3>
+                        <p>走进这座方块堆叠的母校，每一格像素都是青春的形状。教学楼棱角分明，操场绿坪整齐，在这里，每个角落都硬朗清晰，仿佛青春从未模糊过。</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img image-placeholder small" style="border-radius: 28px 28px 0 0; border: none;">
+                        <span>？？？未完待续？？？</span>
+                        <div class="img-tooltip">故事仍在持续...</div>
+                    </div>
+                    <div class="project-content">
+                        <h3>等待建设</h3>
+                        <p>这里预留了未来的建设空间，等待学弟学妹们继续添砖加瓦。用你们的记忆填补空缺，用你们的创意重塑校园这份‘未完待续’，正是为了让它永远‘正在进行’</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <p style="font-size: 0.85rem; margin-top: 8px;">轮播图第二项为MP4视频(静音自动循环) · 左右箭头可点击切换 · 悬停查看介绍框</p>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            const radios = document.querySelectorAll('input[name="carousel"]');
+            const leftArrow = document.getElementById('arrow-left');
+            const rightArrow = document.getElementById('arrow-right');
+            const videos = document.querySelectorAll('.slide-video');
+            
+            function getCheckedIndex() {
+                for (let i = 0; i < radios.length; i++) {
+                    if (radios[i].checked) return i;
+                }
+                return 0;
+            }
+
+            function goToSlide(index) {
+                if (index < 0) index = radios.length - 1;
+                if (index >= radios.length) index = 0;
+                radios[index].checked = true;
+                updateVideoPlayback();
+            }
+
+            function updateVideoPlayback() {
+                let checkedIndex = getCheckedIndex();
+                videos.forEach((video, idx) => {
+                    if (checkedIndex === 1) {
+                        video.play().catch(e => {
+                            console.log('视频自动播放被阻止', e);
+                        });
+                    } else {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+                });
+            }
+
+            radios.forEach(radio => {
+                radio.addEventListener('change', updateVideoPlayback);
+            });
+
+            leftArrow.addEventListener('click', function() {
+                let current = getCheckedIndex();
+                goToSlide(current - 1);
+            });
+
+            rightArrow.addEventListener('click', function() {
+                let current = getCheckedIndex();
+                goToSlide(current + 1);
+            });
+
+            updateVideoPlayback();
+
+            videos.forEach(v => {
+                v.addEventListener('error', function() {
+                    console.log('视频加载失败，请检查链接');
+                });
+            });
+        })();
+    </script>
+    <script src="/cdn-fix.js"></script>
+</body>
+</html>

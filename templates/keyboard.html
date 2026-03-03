@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ 可交互式发光键盘 · 按下A键示范</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(145deg, #2b3a4a 0%, #1d2a35 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .keyboard-container {
+            background: #3e4e5e;
+            padding: 30px 20px 25px;
+            border-radius: 42px;
+            box-shadow: 0 20px 30px -8px rgba(0,0,0,0.7), inset 0 2px 5px rgba(255,255,255,0.15);
+            border-bottom: 4px solid #1f2b33;
+        }
+
+        .keyboard {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .key {
+            width: 68px;
+            height: 68px;
+            background: #e8edf2;
+            background: radial-gradient(circle at 30% 25%, #f6fafd, #cdd9e6);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            font-weight: 600;
+            color: #1e2b38;
+            box-shadow: 0 7px 0 #8b9aab, 0 12px 18px -8px rgba(0,0,0,0.5);
+            transition: all 0.05s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.6);
+            text-transform: lowercase;
+            line-height: 1;
+            font-family: 'Courier New', monospace;
+        }
+
+        .key:is([data-key="a"],[data-key="b"],[data-key="c"],[data-key="d"],[data-key="e"],[data-key="f"],[data-key="g"],[data-key="h"],[data-key="i"],[data-key="j"],[data-key="k"],[data-key="l"],[data-key="m"],[data-key="n"],[data-key="o"],[data-key="p"],[data-key="q"],[data-key="r"],[data-key="s"],[data-key="t"],[data-key="u"],[data-key="v"],[data-key="w"],[data-key="x"],[data-key="y"],[data-key="z"]) {
+            text-transform: uppercase;
+            font-size: 28px;
+        }
+
+        .key.active {
+            background: #ffe484;
+            background: radial-gradient(circle at 30% 30%, #fff2b5, #fdcb4e);
+            box-shadow: 0 0 20px #ffdd55, 0 7px 0 #b38f40, 0 12px 18px -6px black;
+            color: #1f2f3f;
+            border-color: white;
+            transform: translateY(2px);
+        }
+
+        @media (max-width: 700px) {
+            .key {
+                width: 52px;
+                height: 52px;
+                font-size: 22px;
+                border-radius: 14px;
+                box-shadow: 0 4px 0 #8b9aab, 0 10px 14px -6px rgba(0,0,0,0.5);
+            }
+            .key:is([data-key^="a"]) {
+                font-size: 24px;
+            }
+        }
+
+        .info {
+            text-align: center;
+            margin-top: 22px;
+            color: #cfdeed;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 3px black;
+        }
+        .info kbd {
+            background: #26333e;
+            border-radius: 8px;
+            padding: 4px 12px;
+            color: #ffd966;
+            font-size: 1.2rem;
+            border: 1px solid #5f7a93;
+            box-shadow: inset 0 1px 3px #0f1a24;
+            margin: 0 4px;
+        }
+        .info span {
+            font-weight: 300;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+<div class="keyboard-container">
+    <div class="keyboard" id="keyboard">
+        <div class="row">
+            <div class="key" data-key="1">1</div>
+            <div class="key" data-key="2">2</div>
+            <div class="key" data-key="3">3</div>
+            <div class="key" data-key="4">4</div>
+            <div class="key" data-key="5">5</div>
+            <div class="key" data-key="6">6</div>
+            <div class="key" data-key="7">7</div>
+            <div class="key" data-key="8">8</div>
+            <div class="key" data-key="9">9</div>
+            <div class="key" data-key="0">0</div>
+            <div class="key" data-key="-">-</div>
+            <div class="key" data-key="=">=</div>
+        </div>
+        <div class="row">
+            <div class="key" data-key="q">Q</div>
+            <div class="key" data-key="w">W</div>
+            <div class="key" data-key="e">E</div>
+            <div class="key" data-key="r">R</div>
+            <div class="key" data-key="t">T</div>
+            <div class="key" data-key="y">Y</div>
+            <div class="key" data-key="u">U</div>
+            <div class="key" data-key="i">I</div>
+            <div class="key" data-key="o">O</div>
+            <div class="key" data-key="p">P</div>
+            <div class="key" data-key="[">[</div>
+            <div class="key" data-key="]">]</div>
+            <div class="key" data-key="\\">\</div>
+        </div>
+        <div class="row">
+            <div class="key" data-key="a">A</div>
+            <div class="key" data-key="s">S</div>
+            <div class="key" data-key="d">D</div>
+            <div class="key" data-key="f">F</div>
+            <div class="key" data-key="g">G</div>
+            <div class="key" data-key="h">H</div>
+            <div class="key" data-key="j">J</div>
+            <div class="key" data-key="k">K</div>
+            <div class="key" data-key="l">L</div>
+            <div class="key" data-key=";">;</div>
+            <div class="key" data-key="'">'</div>
+        </div>
+        <div class="row">
+            <div class="key" data-key="z">Z</div>
+            <div class="key" data-key="x">X</div>
+            <div class="key" data-key="c">C</div>
+            <div class="key" data-key="v">V</div>
+            <div class="key" data-key="b">B</div>
+            <div class="key" data-key="n">N</div>
+            <div class="key" data-key="m">M</div>
+            <div class="key" data-key=",">,</div>
+            <div class="key" data-key=".">.</div>
+            <div class="key" data-key="/">/</div>
+        </div>
+    </div>
+    <div class="info">
+        <a href="../index.html"><h3>主页</h3></a>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const keys = document.querySelectorAll('.key');
+        const keyMap = new Map();
+        keys.forEach(el => {
+            const keyChar = el.dataset.key;
+            if (keyChar) {
+                keyMap.set(keyChar, el);
+            }
+        });
+
+        const shiftSymbolMap = {
+            '!':'1', '@':'2', '#':'3', '$':'4', '%':'5',
+            '^':'6', '&':'7', '*':'8', '(':'9', ')':'0',
+            '_':'-', '+':'=', '{':'[', '}':']', '|':'\\',
+            ':':';', '"':'\'', '<':',', '>':'.', '?':'/',
+            '~':'`'
+        };
+
+        function normalizeKey(key) {
+            if (key.length !== 1) return null;
+            if (/[a-zA-Z]/.test(key)) {
+                return key.toLowerCase();
+            }
+            if (keyMap.has(key)) {
+                return key;
+            }
+            const base = shiftSymbolMap[key];
+            if (base && keyMap.has(base)) {
+                return base;
+            }
+            return null;
+        }
+
+        keys.forEach(el => {
+            el.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                el.classList.add('active');
+            });
+            el.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                el.classList.add('active');
+            }, { passive: false });
+
+            el.addEventListener('mouseup', () => {
+                el.classList.remove('active');
+            });
+            el.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                el.classList.remove('active');
+            });
+            el.addEventListener('touchcancel', (e) => {
+                e.preventDefault();
+                el.classList.remove('active');
+            });
+
+            el.addEventListener('mouseleave', () => {
+                el.classList.remove('active');
+            });
+        });
+
+        window.addEventListener('keydown', (event) => {
+            if (event.ctrlKey || event.altKey || event.metaKey) {
+                return;
+            }
+
+            const rawKey = event.key;
+            if (rawKey && rawKey.length === 1 && !event.ctrlKey && !event.altKey && !event.metaKey) {
+                event.preventDefault();
+            }
+
+            const mapped = normalizeKey(rawKey);
+            if (!mapped) return;
+
+            const targetKey = keyMap.get(mapped);
+            if (targetKey) {
+                targetKey.classList.add('active');
+            }
+        });
+
+        window.addEventListener('keyup', (event) => {
+            if (event.ctrlKey || event.altKey || event.metaKey) return;
+
+            const rawKey = event.key;
+            const mapped = normalizeKey(rawKey);
+            if (!mapped) return;
+
+            const targetKey = keyMap.get(mapped);
+            if (targetKey) {
+                targetKey.classList.remove('active');
+            }
+        });
+
+        window.addEventListener('blur', () => {
+            keys.forEach(el => el.classList.remove('active'));
+        });
+
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>介绍IT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        /* 全局重置与变量*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        /* 主体 */
+        .main {
+            padding: 40px 0 60px;
+        }
+
+        /* 卡片样式 */
+        .card-style {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 28px 24px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.2s;
+            border: 1px solid #f1f5f9;
+        }
+
+        .card-style:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -8px rgba(0, 37, 91, 0.1), 0 8px 10px -6px rgba(0,0,0,0.02);
+            border-color: #dbeafe;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+        }
+        .page-header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #1e293b, #2563eb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .page-header .breadcrumb {
+            color: #64748b;
+            font-size: 1rem;
+        }
+        .breadcrumb a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb-sep {
+            margin: 0 6px;
+            color: #94a3b8;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .feature-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .feature-content h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #0f172a;
+            margin-bottom: 20px;
+        }
+        .feature-content p {
+            color: #475569;
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .feature-tags span {
+            background: #eef2ff;
+            color: #2563eb;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        /* 图片占位容器*/
+        .image-placeholder {
+            background: #e2e8f0;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #475569;
+            min-height: 260px;
+            width: 100%;
+            transition: background 0.2s;
+            border: 2px dashed #cbd5e1;
+            aspect-ratio: 16 / 10;
+            text-align: center;
+            padding: 16px;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+        .image-placeholder.small {
+            min-height: 160px;
+            aspect-ratio: 16 / 9;
+            border-radius: 18px;
+        }
+
+        /* 项目卡片网格 */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 48px 0 24px;
+            color: #1e293b;
+            letter-spacing: -0.02em;
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .project-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+            border: 1px solid #f1f5f9;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 30px -12px rgba(0, 37, 91, 0.15);
+            border-color: #dbeafe;
+        }
+
+        .project-img {
+            width: 100%;
+            background: #e2e8f0;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #475569;
+            border-bottom: 1px solid #e9eef3;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        .project-content {
+            padding: 24px 22px 26px;
+        }
+        .project-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+        .project-content p {
+            color: #475569;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 0.98rem;
+        }
+        /* 页脚 */
+        .footer {
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            padding: 32px 0;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* 响应式 */
+        @media (max-width: 800px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .feature-content h2 {
+                font-size: 1.8rem;
+            }
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+        @media (max-width: 600px) {
+            .project-grid {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="main">
+        <div class="container">
+            <!-- 面包屑/页面标题区 (移除图标，使用文字分隔符) -->
+            <div class="page-header">
+                <div class="breadcrumb">
+                    <a href="../index.html">主页</a>
+                    <span class="breadcrumb-sep">/</span>
+                    <span style="color: #0f172a; font-weight: 500;">IT简介页</span>
+                </div>
+                <h1>数字世界· 无限可能</h1>
+            </div>
+
+            <!-- 特色介绍区 -->
+            <div class="feature-grid card-style" style="padding: 32px;">
+                <div class="feature-content">
+                    <h2>IT的含义</h2>
+                    <p>官方定义：信息技术（Information Technology，缩写IT），是主要用于管理和处理信息所采用的各种技术的总称。</p>
+                    <p>也就是说，IT并非程序员的专利</p>
+                    <p>例如：数字绘画 是在利用信息技术进行创作</p>
+                    <p>网络安全专家 他们的主要负责模拟攻击、制定安全策略</p>
+                    <p>网络工程师 负责设计、搭建和维护公司的网络架构，面对物理设备而非编程语言</p>
+                    <div class="feature-tags">
+                        <span>日新月异</span>
+                        <span>赋能</span>
+                        <span>务实</span>
+                    </div>
+                </div>
+                <div class="feature-image">
+                    <!-- 图片占位区 -->
+                    <div class="image-placeholder" style="height: 100%; min-height: 280px;">
+                        <img width="620" height="390" src="../static/images/IT.jpg" alt="图片无法显示">
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">速度·温度·深度——走进真实的IT世界</h2>
+            <div class="project-grid">
+                <!--卡片-->
+                <div class="project-card">
+                    <div class="project-img image-placeholder small" style="border-radius: 28px 28px 0 0; border: none;">
+                        <img width="400" height="220" src="../static/images/ITcard1.jpg" alt="图片无法显示">
+                    </div>
+                    <div class="project-content">
+                        <h3>速度</h3>
+                        <p>技术迭代以月为单位，硬件性能18个月翻一番。在IT行业，学习是生存刚需，唯有持续奔跑，才能跟上时代变革的浪潮</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img image-placeholder small" style="border-radius: 28px 28px 0 0; border: none;">
+                        <img width="400" height="220" src="../static/images/ITcard2.jpg" alt="图片无法显示">
+                    </div>
+                    <div class="project-content">
+                        <h3>温度</h3>
+                        <p>格子衫下藏着有趣的灵魂，工位手办是最后的倔强,代码写累了就去漫展回回血。这里不只有Bug和 Deadline，更有一群把生活过成二次元的可爱coser。</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img image-placeholder small" style="border-radius: 28px 28px 0 0; border: none;">
+                        <img width="400" height="220" src="../static/images/ITcard3.jpg" alt="图片无法显示">
+                    </div>
+                    <div class="project-content">
+                        <h3>深度</h3>
+                        <p>IT不止于代码与设备。它深入千行百业，为医疗、金融、教育赋能，用技术连接世界，成为推动社会进步的核心力量</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!--页脚-->
+    <footer class="footer">
+        <div class="container">
+            <p style="font-size: 0.85rem; margin-top: 8px;">2026 武汉一高IT社</p>
+        </div>
+    </footer>
+    <script src="/cdn-fix.js"></script>
+</body>
+</html>
