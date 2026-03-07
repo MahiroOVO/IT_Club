@@ -2,6 +2,8 @@
 <html lang="zh-CN">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=0.55">
+        <meta name="orientation" content="landscape">
         <title>武汉一高it社</title>
         <style>
             body {
@@ -144,6 +146,14 @@
             footer p {
                 margin: 5px 0;
             }
+            @media (min-width: 800px) {
+                .mobile{
+                    display: none;
+                }
+                .background{
+                    height: 105%;
+                }
+            }
         </style>
     </head>
     <body>
@@ -151,6 +161,8 @@
         <div class="content">
             <h1 class="opentext">Check!</h1>
             <p>网页加载速度较慢，无法加载图片耐心等待</p>
+            <br>
+            <p class="mobile">请使用横屏以正常访问！</p>
         </div>
         <div class='nav'>
             <ul class="navlist">
